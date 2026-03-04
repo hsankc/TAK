@@ -64,6 +64,15 @@ const MODULES = [
     glow: 'rgba(132,204,22,0.35)',
     particle: '🍽️',
   },
+  {
+    href: '/game',
+    label: 'Gökyüzü Macerası',
+    desc: 'Uçak mini oyunu ✈',
+    icon: Zap,
+    gradient: 'from-sky-500 via-blue-600 to-violet-600',
+    glow: 'rgba(14,165,233,0.45)',
+    particle: '✈️',
+  },
 ];
 
 function getGreeting() {
