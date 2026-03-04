@@ -14,7 +14,7 @@ export default function AddByUrl({ onAdded }: { onAdded: () => void }) {
     const [title, setTitle] = useState('');
     const [organizer, setOrganizer] = useState('');
     const [category, setCategory] = useState('etkinlik');
-    const [type, setType] = useState('Fiziksel');
+    const [type, setType] = useState('TR');
     const [deadline, setDeadline] = useState('');
 
     const handleLinkAdd = async (e: React.FormEvent) => {
@@ -176,16 +176,15 @@ export default function AddByUrl({ onAdded }: { onAdded: () => void }) {
                                         <option value="etkinlik" className="bg-gray-900">Etkinlik</option>
                                         <option value="bootcamp" className="bg-gray-900">Eğitim</option>
                                         <option value="hackathon" className="bg-gray-900">Hackathon</option>
-                                        <option value="staj" className="bg-gray-900">Staj / İş</option>
+                                        <option value="is_staj" className="bg-gray-900">Staj / İş</option>
                                     </select>
                                     <select
                                         value={type}
                                         onChange={e => setType(e.target.value)}
                                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-sm text-gray-300 focus:outline-none focus:border-purple-500/50 transition-all appearance-none cursor-pointer"
                                     >
-                                        <option value="Fiziksel" className="bg-gray-900">Fiziksel</option>
-                                        <option value="Online" className="bg-gray-900">Online</option>
-                                        <option value="Hibrit" className="bg-gray-900">Hibrit</option>
+                                        <option value="TR" className="bg-gray-900">Türkiye İçi (Fiziksel/Online)</option>
+                                        <option value="Global" className="bg-gray-900">Global (Yurtdışı/Remote)</option>
                                     </select>
                                     <input
                                         type="date"

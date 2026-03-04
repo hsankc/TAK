@@ -11,13 +11,19 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'URL required' }, { status: 400 });
         }
 
-        const scrapedData = await scrapeUrl(url);
-
-        if (!scrapedData) {
-            return NextResponse.json({ error: 'Failed to scrape URL' }, { status: 500 });
-        }
+        let scrapedData = await scrapeUrl(url);
 
         const source = new URL(url).hostname.replace('www.', '').split('.')[0];
+
+        if (!scrapedData) {
+            // Fallback for when scraping fails (e.g. 403 Forbidden from Indeed/LinkedIn)
+            scrapedData = {
+                title: `Yeni İlan (${source})`,
+                url,
+                deadline: null,
+                description: 'Detaylar için linke tıklayın'
+            };
+        }
 
         const opportunity = {
             ...scrapedData,
