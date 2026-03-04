@@ -5,11 +5,13 @@ import EventCard from './EventCard';
 interface EventListProps {
     events: any[];
     onStatusChange: (id: string, newStatus: string) => void;
+    onEdit?: (id: string) => void;
+    onDelete?: (id: string) => void;
     loading: boolean;
     onCardClick?: (event: any) => void;
 }
 
-export default function EventList({ events, onStatusChange, loading, onCardClick }: EventListProps) {
+export default function EventList({ events, onStatusChange, onEdit, onDelete, loading, onCardClick }: EventListProps) {
     if (loading) {
         return (
             <div className="flex flex-col items-center justify-center py-20 text-blue-500/50">
@@ -19,19 +21,19 @@ export default function EventList({ events, onStatusChange, loading, onCardClick
         );
     }
 
-    const listVariants = {
-        hidden: { opacity: 0 },
-        show: {
-            opacity: 1,
-            transition: { staggerChildren: 0.1 }
-        }
-    };
+    if (events.length === 0) {
+        return (
+            <div className="flex flex-col items-center justify-center py-20 text-gray-600">
+                <p className="text-4xl mb-3">🔍</p>
+                <p className="text-sm font-semibold">Hiç ilan bulunamadı.</p>
+            </div>
+        );
+    }
 
     return (
         <motion.div
-            variants={listVariants}
-            initial="hidden"
-            animate="show"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { staggerChildren: 0.08 } }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
             {events.map((event, index) => (
@@ -47,6 +49,8 @@ export default function EventList({ events, onStatusChange, loading, onCardClick
                         type={event.location_type || 'TR'}
                         status={event.status}
                         onStatusChange={onStatusChange}
+                        onEdit={onEdit}
+                        onDelete={onDelete}
                     />
                 </div>
             ))}

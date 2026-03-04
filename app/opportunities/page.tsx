@@ -53,6 +53,22 @@ export default function OpportunitiesPage() {
     }
   }
 
+  async function handleDelete(id: string) {
+    if (!confirm('Bu ilanı silmek istediğine emin misin?')) return;
+    try {
+      const { error } = await supabase.from('opportunities').delete().eq('id', id);
+      if (error) throw error;
+      fetchOpportunities();
+    } catch (error) {
+      console.error('Delete error:', error);
+    }
+  }
+
+  function handleEdit(id: string) {
+    const event = opportunities.find(o => o.id === id);
+    if (event) setSelectedEvent(event);
+  }
+
   const filters = [
     { value: 'all', label: 'TÜMÜ' },
     { value: 'wishlist', label: 'İSTEK LİSTEM' },
@@ -125,6 +141,8 @@ export default function OpportunitiesPage() {
                 key={filter}
                 events={opportunities}
                 onStatusChange={updateStatus}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
                 loading={loading}
                 onCardClick={setSelectedEvent}
               />

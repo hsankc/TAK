@@ -4,6 +4,7 @@ import "./globals.css";
 import Link from "next/link";
 import { Home, TrendingUp, Calendar as CalendarIcon, Target, BookOpen, UtensilsCrossed, Timer } from "lucide-react";
 import PushNotificationManager from "@/components/PushNotificationManager";
+import MobileNav from "@/components/MobileNav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -76,24 +77,14 @@ export default function RootLayout({
             </div>
           </aside>
 
-          {/* Main Content — with left padding on desktop for sidebar */}
-          <main className="flex-1 overflow-auto md:ml-64 pb-20 md:pb-0">
+          {/* Main Content */}
+          <main className="flex-1 overflow-auto md:ml-64 pt-14 md:pt-0">
             {children}
           </main>
         </div>
 
-        {/* Mobile Bottom Nav — hidden on desktop */}
-        <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-gray-950/95 backdrop-blur-xl border-t border-white/5 z-50 safe-bottom">
-          <div className="flex justify-around items-center py-2 px-1">
-            {navLinks.map(link => (
-              <Link key={link.href} href={link.href}
-                className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl text-gray-500 hover:text-white active:text-cyan-400 transition-colors">
-                <link.icon size={20} />
-                <span className="text-[9px] font-bold tracking-wider">{link.label.split(' ')[0]}</span>
-              </Link>
-            ))}
-          </div>
-        </nav>
+        {/* Mobile Nav (hamburger + drawer) */}
+        <MobileNav />
 
         {/* Global UI Overlays */}
         <PushNotificationManager />
